@@ -1,0 +1,75 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.exception.PatientNotFoundException;
+import com.example.demo.model.Patient;
+import com.example.demo.repository.PatientRepository;
+
+@Service
+public class PatientServiceImpl implements PatientService {
+
+	@Autowired
+	private PatientRepository pr;
+
+	@Override
+	public void add(Patient p) {
+		// TODO Auto-generated method stub
+		pr.save(p);
+
+	}
+
+	@Override
+	public List<Patient> display() {
+		// TODO Auto-generated method stub
+		return pr.findAll();
+	}
+
+	@Override
+	public Patient update(Integer id, Patient p) {
+		// TODO Auto-generated method stub
+ 		p.setId(id);
+		return pr.save(p);
+	}
+
+	@Override
+	public void deleteById(Integer id) throws Exception {
+
+		Patient patient = this.pr.findById(id)
+				.orElseThrow(() -> new PatientNotFoundException("patient not found with give id"));
+		// TODO Auto-generated method stub
+		pr.delete(patient);
+
+	}
+
+	@Override
+	public void findByName(String name) {
+		pr.findByName(name);
+	}
+
+	@Override
+	public void findByDate(String date) {
+		// TODO Auto-generated method stub
+		pr.findByDate(date);
+	}
+
+	@Override
+	public void findByAge(Integer id) {
+		// TODO Auto-generated method stub
+		pr.findByAge(id);
+		
+	}
+
+	@Override
+	public void findByGender(String gender) {
+		// TODO Auto-generated method stub
+		pr.findByGender(gender);
+	}
+	
+	
+
+}
