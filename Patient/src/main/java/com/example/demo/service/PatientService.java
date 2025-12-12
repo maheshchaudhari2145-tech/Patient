@@ -19,6 +19,11 @@ public interface PatientService {
 	
 	public void findByAge(Integer age);
 	
-	public void findByGender(String gender);
+	public List<Patient> findByGender(String gender);
 
+	List<Patient> sortByName();
+	
+	List<Patient> sortByAge();
+	
+	
 }

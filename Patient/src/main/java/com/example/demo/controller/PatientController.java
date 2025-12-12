@@ -49,23 +49,33 @@ public class PatientController {
 		return ps.update(id, p);
 	}
 
-	@PutMapping("findbyname={name}")
+	@PutMapping("findByName={name}")
 	public void findByName(@PathVariable String name) {
 		ps.findByName(name);
 	}
 
-	@PutMapping("findbydate={date}")
+	@PutMapping("findByDate={date}")
 	public void findBydate(@PathVariable String date) {
 		ps.findByDate(date);
 	}
 
-	@PutMapping("findbyage={age}")
+	@PutMapping("findByAge={age}")
 	public void findByAge(@PathVariable Integer age) {
 		ps.findByAge(age);
 	}
 
-	@PutMapping("findbygender={gender}")
-	public void findByGender(@PathVariable String gender) {
-		ps.findByGender(gender);
+	@GetMapping("findByGender={gender}")
+	public ResponseEntity<?> findByGender(@PathVariable String gender) {
+		return ResponseEntity.status(200).body(ps.findByGender(gender));
+	}
+	
+	@GetMapping("sortByName")
+	List<Patient> sortByName() {
+		return ps.sortByName();
+	}
+	
+	@GetMapping("sortByAge")
+	List<Patient> sortByAge(){
+		return ps.sortByAge();
 	}
 }

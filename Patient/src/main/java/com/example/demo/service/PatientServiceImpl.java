@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
@@ -32,7 +34,7 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public Patient update(Integer id, Patient p) {
 		// TODO Auto-generated method stub
- 		p.setId(id);
+		p.setId(id);
 		return pr.save(p);
 	}
 
@@ -61,15 +63,35 @@ public class PatientServiceImpl implements PatientService {
 	public void findByAge(Integer id) {
 		// TODO Auto-generated method stub
 		pr.findByAge(id);
-		
+
 	}
 
 	@Override
-	public void findByGender(String gender) {
+	public List<Patient> findByGender(String gender) {
 		// TODO Auto-generated method stub
-		pr.findByGender(gender);
+		return pr.findByGender(gender);
 	}
-	
-	
+
+	@Override
+	public List<Patient> sortByName() {
+		// TODO Auto-generated method stub
+		List<Patient> list = pr.findAll();
+
+		Collections.sort(list, new Comparator<Patient>() {
+			public int compare(Patient o1, Patient o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		return list;
+	}
+
+	@Override
+	public List<Patient> sortByAge() {
+		// TODO Auto-generated method stub
+		List <Patient> list = pr.findAll();
+		list.sort((p1,p2) -> p1.getAge().compareTo(p2.getAge()));
+		
+		return list;
+	}	
 
 }
